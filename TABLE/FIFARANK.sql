@@ -1,17 +1,17 @@
 DROP TABLE FIFARANK ;
 
 CREATE TABLE FIFARANK(
-	rank, 
+	fifarank, 
 	team_id, 
-	PRIMARY KEY (rank, team_id)
+	PRIMARY KEY (fifarank, team_id)
 );
 
 CREATE INDEX FIFARANK_IDX ON FIFARANK (
-	rank, 
+	fifarank, 
 	team_id
 );
 
-INSERT INTO FIFARANK (rank, team_id) VALUES 
+INSERT INTO FIFARANK (fifarank, team_id) VALUES 
 	(1, 'ARG'), 
 	(2, 'ESP'), 
 	(3, 'FRA'), 
