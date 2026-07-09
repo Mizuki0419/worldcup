@@ -1,8 +1,8 @@
 DROP TABLE GROUPSTAGE ;
 
 CREATE TABLE GROUPSTAGE(
-	group_id, 
-	group_name, 
+	group_id TEXT,
+	group_name TEXT,
 	PRIMARY KEY (group_id)
 );
 

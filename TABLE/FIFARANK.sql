@@ -1,8 +1,8 @@
 DROP TABLE FIFARANK ;
 
 CREATE TABLE FIFARANK(
-	fifarank, 
-	team_id, 
+	fifarank INT,
+	team_id TEXT,
 	PRIMARY KEY (fifarank, team_id)
 );
 

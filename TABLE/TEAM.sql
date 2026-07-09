@@ -1,9 +1,9 @@
 DROP TABLE TEAM ;
 
 CREATE TABLE TEAM(
-	team_id, 
-	team_name, 
-	group_id, 
+	team_id TEXT,
+	team_name TEXT,
+	group_id TEXT,
 	PRIMARY KEY (team_id)
 );
 

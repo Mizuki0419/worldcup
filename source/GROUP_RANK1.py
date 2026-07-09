@@ -1,15 +1,22 @@
 import sqlite3
+from pathlib import Path
+
+# パス設定
+script_dir = Path(__file__).parent # スクリプトのフォルダ
+project_root = script_dir.parent # プロジェクトのルートフォルダ
+sql_path = script_dir / "GROUP_RANK0_SELECT.sql" # スクリプトと同じフォルダに置いてあるGROUP_RANK0_SELECT.sqlのフルパス
+db_path = project_root / "db" / "worldcup.sqlite3" # DBファイルのフルパス
 
 # -----------------------------
 # 1. SQLファイルを読み込む
 # -----------------------------
-with open(r"C:\Users\naked\OneDrive\Documents\GitHub\worldcup\source\GROUP_RANK0_SELECT.sql", "r", encoding="utf-8") as f:
+with open(sql_path, "r", encoding="utf-8") as f:
     select_sql = f.read()
 
 # -----------------------------
 # 1. SQLite に接続
 # -----------------------------
-con = sqlite3.connect(r"C:\Users\naked\OneDrive\Documents\GitHub\worldcup\db\worldcup.sqlite3")
+con = sqlite3.connect(db_path)
 cur = con.cursor()
 
 # -----------------------------
