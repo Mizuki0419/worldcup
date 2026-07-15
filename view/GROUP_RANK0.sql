@@ -56,7 +56,7 @@ GRMT AS (
         GRMT_CAL.loss AS loss,
         GRMT_CAL.goal_scored AS goal_scored,
         GRMT_CAL.goal_allowed AS goal_allowed,
-        GRMT_CAL.goal_scored - GRMT_CAL.goal_allowed AS goal_difference,
+        GRMT_CAL.goal_difference AS goal_difference,
         GRMT_CAL.conduct_score AS conduct_score,
         GRMT_CAL.points AS points,
         FIFARANK.fifarank AS fifarank
