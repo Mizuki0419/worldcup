@@ -6,20 +6,20 @@
  ※順位がつかなくなるまで繰り返し
 **********************************/
 
-DROP TABLE GROUP_RANK1 ;
+DROP TABLE IF EXISTS GROUP_RANK1;
 
 CREATE TABLE GROUP_RANK1(
-	group_id, 
-	rank, 
-	team_id, 
-	played, 
-	win, 
-	draw, 
-	loss, 
-	goal_scored, 
-	goal_allowed, 
-	goal_difference, 
-	conduct_score, 
-	points, 
+	group_id,
+	rank,
+	team_id,
+	played,
+	win,
+	draw,
+	loss,
+	goal_scored,
+	goal_allowed,
+	goal_difference,
+	conduct_score,
+	points,
 	fifarank
 );

@@ -6,24 +6,19 @@
  ※繰り返さない
 **********************************/
 
-DROP VIEW GROUP_RANK2;
+DROP VIEW IF EXISTS GROUP_RANK2;
 
-CREATE VIEW GROUP_RANK2 AS 
+CREATE VIEW GROUP_RANK2 AS
 WITH
 GRMT_FIL AS ( --グループステージの結果を抽出
-    SELECT MATCHES.match_id, MATCH_TEAM.team_id, MATCH_TEAM.score, MATCH_TEAM.conduct_score
+    SELECT MATCHES.match_id, MATCH_TEAM.team_id, MATCH_TEAM.score
     FROM MATCHES
     JOIN MATCH_TEAM USING (match_id)
     WHERE MATCHES.match_kbn = '1'
-/**********************************
-    --GROUP_RANK1でグループ内のrankがかぶってる奴だけの条件かく
-**********************************/
     ),
 GRMT_SUM AS ( --チームごとの試合結果等を集計
     SELECT
         HOME.team_id AS team_id,
-        SUM(HOME.score) AS goal_scored,
-        SUM(AWAY.score) AS goal_allowed,
         MAX(HOME.score) AS max_scored
     FROM
         GRMT_FIL AS HOME
@@ -34,25 +29,49 @@ GRMT_SUM AS ( --チームごとの試合結果等を集計
     GROUP BY
         HOME.team_id
     ),
-GRMT_CAL AS ( --チームごとの成績を算出
+GRMT_CAL AS ( --GROUP_RANK1から情報採取
     SELECT
-        GRMT_SUM.team_id AS team_id,
-        GRMT_SUM.goal_scored - GRMT_SUM.goal_allowed AS goal_difference,
+    	GROUP_RANK1.group_id,
+        GROUP_RANK1.rank,
+        GROUP_RANK1.team_id,
+        GROUP_RANK1.played,
+        GROUP_RANK1.win,
+        GROUP_RANK1.draw,
+        GROUP_RANK1.loss,
+        GROUP_RANK1.goal_scored,
+        GROUP_RANK1.goal_allowed,
+        GROUP_RANK1.goal_difference,
+        GROUP_RANK1.conduct_score,
+        GROUP_RANK1.points,
+        GROUP_RANK1.fifarank,
         GRMT_SUM.max_scored AS max_scored
-    FROM GRMT_SUM
+    FROM GROUP_RANK1
+    JOIN GRMT_SUM USING (team_id)
     ),
 GRMT AS (
     SELECT
-        GRMT_CAL.team_id AS team_id,
-        GRMT_CAL.goal_difference AS goal_difference,
-        GRMT_CAL.max_scored AS max_scored
+        *
     FROM GRMT_CAL
     )
 SELECT
-    RANK() OVER (ORDER BY GRMT.goal_difference DESC,GRMT.max_scored DESC) AS rank,
-    GRMT.team_id AS team_id
+    GRMT.group_id AS group_id,
+    RANK() OVER (
+        PARTITION BY GRMT.group_id
+        ORDER BY
+            GRMT.rank ASC,
+            GRMT.goal_difference DESC,
+            GRMT.max_scored DESC,
+            GRMT.conduct_score DESC) AS rank,
+    GRMT.team_id AS team_id,
+    GRMT.played AS played,
+    GRMT.win AS win,
+    GRMT.draw AS draw,
+    GRMT.loss AS loss,
+    GRMT.goal_scored AS goal_scored,
+    GRMT.goal_allowed AS goal_allowed,
+    GRMT.goal_difference AS goal_difference,
+    GRMT.conduct_score AS conduct_score,
+    GRMT.points AS points,
+    GRMT.fifarank AS fifarank
 FROM GRMT
-
-UNION ALL
-
 ;

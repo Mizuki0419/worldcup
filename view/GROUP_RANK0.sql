@@ -3,7 +3,7 @@
  グループ内の勝点
 **********************************/
 
-DROP VIEW GROUP_RANK0;
+DROP VIEW IF EXISTS GROUP_RANK0;
 
 CREATE VIEW GROUP_RANK0 AS
 WITH
