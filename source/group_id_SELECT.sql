@@ -1,3 +1,0 @@
-SELECT group_id
-FROM GROUP_RANK0
-GROUP BY group_id;

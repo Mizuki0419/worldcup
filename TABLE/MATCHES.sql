@@ -1,6 +1,6 @@
 DROP TABLE MATCHES;
 
-CREATE TABLE MATCHES(
+CREATE TABLE MATCHES (
 	match_id TEXT,
 	match_kbn TEXT,
 	match_date TEXT,

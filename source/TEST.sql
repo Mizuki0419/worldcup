@@ -1,1 +1,0 @@
-SELECT * FROM GROUP_RANK0 WHERE group_id = ?;

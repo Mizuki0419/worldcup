@@ -15,7 +15,7 @@ GRMT_SUM AS ( --チームごとの試合結果等を集計
         SUM(CASE WHEN HOME.score < AWAY.score THEN 1 ELSE 0 END) AS loss,
         SUM(HOME.score) AS goal_scored,
         SUM(AWAY.score) AS goal_allowed,
-        MAX(HOME.score) AS max_score
+        MAX(HOME.score) AS max_scored
     FROM
         GRMT_FIL AS HOME
     INNER JOIN
@@ -30,7 +30,7 @@ GRMT_CAL AS ( --チームごとの成績を算出
         GRMT_SUM.team_id AS team_id,
         (GRMT_SUM.win * 3) + (GRMT_SUM.draw * 1) AS points,
         GRMT_SUM.goal_scored - GRMT_SUM.goal_allowed AS goal_difference,
-        GRMT_SUM.max_score AS max_score
+        GRMT_SUM.max_scored AS max_scored
     FROM GRMT_SUM
     ),
 GRMT AS (
@@ -38,11 +38,11 @@ GRMT AS (
         GRMT_CAL.team_id AS team_id,
         GRMT_CAL.points AS points,
         GRMT_CAL.goal_difference AS goal_difference,
-        GRMT_CAL.max_score AS max_score
+        GRMT_CAL.max_scored AS max_scored
     FROM GRMT_CAL
     )
 SELECT
-    RANK() OVER (ORDER BY GRMT.points,GRMT.goal_difference,GRMT.max_score DESC) AS rank,
+    RANK() OVER (ORDER BY GRMT.points DESC,GRMT.goal_difference DESC,GRMT.max_scored DESC) AS rank,
     GRMT.team_id AS team_id
 FROM GRMT
 ;
