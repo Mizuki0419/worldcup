@@ -205,5 +205,21 @@ INSERT INTO MATCH_TEAM (match_id, team_id, score, pk_score, conduct_score) VALUE
 	('095', 'ARG', 3, NULL, 0),
 	('095', 'EGY', 2, NULL, -9),
 	('096', 'SUI', 0, 4, -3),
-	('096', 'COL', 0, 3, -3)
+	('096', 'COL', 0, 3, -3),
+	('097', 'FRA', 2, NULL, 0),
+	('097', 'MAR', 0, NULL, -1),
+	('098', 'ESP', 2, NULL, -2),
+	('098', 'BEL', 1, NULL, -2),
+	('099', 'NOR', 1, NULL, -1),
+	('099', 'ENG', 2, NULL, 0),
+	('100', 'ARG', 3, NULL, -3),
+	('100', 'SUI', 1, NULL, -3),
+	('101', 'FRA', 0, NULL, -2),
+	('101', 'ESP', 2, NULL, -1),
+	('102', 'ENG', 1, NULL, -1),
+	('102', 'ARG', 2, NULL, -3),
+	('103', 'FRA', 4, NULL, 0),
+	('103', 'ENG', 6, NULL, 0),
+	('104', 'ESP', 1, NULL, 0),
+	('104', 'ARG', 0, NULL, -8)
 ;

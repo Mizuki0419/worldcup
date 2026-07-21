@@ -23,9 +23,9 @@ ALM AS (
     FROM MATCHES
     )
 SELECT
-    PS.point_spread AS point_spread,
-    COUNT(*) AS point_spread_number,
-    ROUND((COUNT(*) * 1.0 / ALM.con) * 100, 2) AS per
+    PS.point_spread AS 点差,
+    COUNT(*) AS 数,
+    ROUND((COUNT(*) * 1.0 / ALM.con) * 100, 2) AS 割合
 FROM
     (
     SELECT ABS(MTA.score - MTB.score) AS point_spread
